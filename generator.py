@@ -17,7 +17,7 @@ def generate(letters, digits, symbols):
 
     random.shuffle(characters)
 
-    return ''.join(characters)
+    return "".join(characters)
 
 
 def _calc_streght(password):
@@ -34,4 +34,4 @@ def streght(password):
     if current > baseline:
         return 16
 
-    return int(15 * current/baseline)
+    return int(15 * current / baseline)

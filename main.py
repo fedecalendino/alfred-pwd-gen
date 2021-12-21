@@ -44,16 +44,17 @@ def format_subtitle(letters, digits, symbols, streght):
 def main(workflow):
     letters, digits, symbols = parse_args(workflow.args)
 
-    password = generator.generate(letters, digits, symbols)
-    streght = generator.streght(password)
+    for _ in range(5):
+        password = generator.generate(letters, digits, symbols)
+        streght = generator.streght(password)
 
-    workflow.add_item(
-        title=" {}".format(password),
-        subtitle=format_subtitle(letters, digits, symbols, streght),
-        arg=password,
-        copytext=password,
-        valid=True
-    )
+        workflow.add_item(
+            title=" {}".format(password),
+            subtitle=format_subtitle(letters, digits, symbols, streght),
+            arg=password,
+            copytext=password,
+            valid=True,
+        )
 
 
 if __name__ == u"__main__":

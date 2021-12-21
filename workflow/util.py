@@ -31,28 +31,28 @@ import time
 # "com.runningwithcrayons.Alfred" depending on version.
 #
 # Open Alfred in search (regular) mode
-JXA_SEARCH = 'Application({app}).search({arg});'
+JXA_SEARCH = "Application({app}).search({arg});"
 # Open Alfred's File Actions on an argument
-JXA_ACTION = 'Application({app}).action({arg});'
+JXA_ACTION = "Application({app}).action({arg});"
 # Open Alfred's navigation mode at path
-JXA_BROWSE = 'Application({app}).browse({arg});'
+JXA_BROWSE = "Application({app}).browse({arg});"
 # Set the specified theme
-JXA_SET_THEME = 'Application({app}).setTheme({arg});'
+JXA_SET_THEME = "Application({app}).setTheme({arg});"
 # Call an External Trigger
-JXA_TRIGGER = 'Application({app}).runTrigger({arg}, {opts});'
+JXA_TRIGGER = "Application({app}).runTrigger({arg}, {opts});"
 # Save a variable to the workflow configuration sheet/info.plist
-JXA_SET_CONFIG = 'Application({app}).setConfiguration({arg}, {opts});'
+JXA_SET_CONFIG = "Application({app}).setConfiguration({arg}, {opts});"
 # Delete a variable from the workflow configuration sheet/info.plist
-JXA_UNSET_CONFIG = 'Application({app}).removeConfiguration({arg}, {opts});'
+JXA_UNSET_CONFIG = "Application({app}).removeConfiguration({arg}, {opts});"
 # Tell Alfred to reload a workflow from disk
-JXA_RELOAD_WORKFLOW = 'Application({app}).reloadWorkflow({arg});'
+JXA_RELOAD_WORKFLOW = "Application({app}).reloadWorkflow({arg});"
 
 
 class AcquisitionError(Exception):
     """Raised if a lock cannot be acquired."""
 
 
-AppInfo = namedtuple('AppInfo', ['name', 'path', 'bundleid'])
+AppInfo = namedtuple("AppInfo", ["name", "path", "bundleid"])
 """Information about an installed application.
 
 Returned by :func:`appinfo`. All attributes are Unicode.
@@ -86,14 +86,14 @@ def jxa_app_name():
         unicode: Application name or ID.
 
     """
-    if os.getenv('alfred_version', '').startswith('3'):
+    if os.getenv("alfred_version", "").startswith("3"):
         # Alfred 3
-        return u'Alfred 3'
+        return u"Alfred 3"
     # Alfred 4+
-    return u'com.runningwithcrayons.Alfred'
+    return u"com.runningwithcrayons.Alfred"
 
 
-def unicodify(s, encoding='utf-8', norm=None):
+def unicodify(s, encoding="utf-8", norm=None):
     """Ensure string is Unicode.
 
     .. versionadded:: 1.31
@@ -115,6 +115,7 @@ def unicodify(s, encoding='utf-8', norm=None):
 
     if norm:
         from unicodedata import normalize
+
         s = normalize(norm, s)
 
     return s
@@ -139,7 +140,7 @@ def utf8ify(s):
         return s
 
     if isinstance(s, unicode):
-        return s.encode('utf-8')
+        return s.encode("utf-8")
 
     return str(s)
 
@@ -204,17 +205,17 @@ def run_applescript(script, *args, **kwargs):
         str: Output of run command.
 
     """
-    lang = 'AppleScript'
-    if 'lang' in kwargs:
-        lang = kwargs['lang']
-        del kwargs['lang']
+    lang = "AppleScript"
+    if "lang" in kwargs:
+        lang = kwargs["lang"]
+        del kwargs["lang"]
 
-    cmd = ['/usr/bin/osascript', '-l', lang]
+    cmd = ["/usr/bin/osascript", "-l", lang]
 
     if os.path.exists(script):
         cmd += [script]
     else:
-        cmd += ['-e', script]
+        cmd += ["-e", script]
 
     cmd.extend(args)
 
@@ -236,7 +237,7 @@ def run_jxa(script, *args):
         str: Output of script.
 
     """
-    return run_applescript(script, *args, lang='JavaScript')
+    return run_applescript(script, *args, lang="JavaScript")
 
 
 def run_trigger(name, bundleid=None, arg=None):
@@ -253,17 +254,19 @@ def run_trigger(name, bundleid=None, arg=None):
         arg (str, optional): Argument to pass to trigger.
 
     """
-    bundleid = bundleid or os.getenv('alfred_workflow_bundleid')
+    bundleid = bundleid or os.getenv("alfred_workflow_bundleid")
     appname = jxa_app_name()
-    opts = {'inWorkflow': bundleid}
+    opts = {"inWorkflow": bundleid}
     if arg:
-        opts['withArgument'] = arg
+        opts["withArgument"] = arg
 
-    script = JXA_TRIGGER.format(app=json.dumps(appname),
-                                arg=json.dumps(name),
-                                opts=json.dumps(opts, sort_keys=True))
+    script = JXA_TRIGGER.format(
+        app=json.dumps(appname),
+        arg=json.dumps(name),
+        opts=json.dumps(opts, sort_keys=True),
+    )
 
-    run_applescript(script, lang='JavaScript')
+    run_applescript(script, lang="JavaScript")
 
 
 def set_theme(theme_name):
@@ -276,9 +279,8 @@ def set_theme(theme_name):
 
     """
     appname = jxa_app_name()
-    script = JXA_SET_THEME.format(app=json.dumps(appname),
-                                  arg=json.dumps(theme_name))
-    run_applescript(script, lang='JavaScript')
+    script = JXA_SET_THEME.format(app=json.dumps(appname), arg=json.dumps(theme_name))
+    run_applescript(script, lang="JavaScript")
 
 
 def set_config(name, value, bundleid=None, exportable=False):
@@ -297,19 +299,21 @@ def set_config(name, value, bundleid=None, exportable=False):
             as exportable (Don't Export checkbox).
 
     """
-    bundleid = bundleid or os.getenv('alfred_workflow_bundleid')
+    bundleid = bundleid or os.getenv("alfred_workflow_bundleid")
     appname = jxa_app_name()
     opts = {
-        'toValue': value,
-        'inWorkflow': bundleid,
-        'exportable': exportable,
+        "toValue": value,
+        "inWorkflow": bundleid,
+        "exportable": exportable,
     }
 
-    script = JXA_SET_CONFIG.format(app=json.dumps(appname),
-                                   arg=json.dumps(name),
-                                   opts=json.dumps(opts, sort_keys=True))
+    script = JXA_SET_CONFIG.format(
+        app=json.dumps(appname),
+        arg=json.dumps(name),
+        opts=json.dumps(opts, sort_keys=True),
+    )
 
-    run_applescript(script, lang='JavaScript')
+    run_applescript(script, lang="JavaScript")
 
 
 def unset_config(name, bundleid=None):
@@ -325,15 +329,17 @@ def unset_config(name, bundleid=None):
         bundleid (str, optional): Bundle ID of workflow variable belongs to.
 
     """
-    bundleid = bundleid or os.getenv('alfred_workflow_bundleid')
+    bundleid = bundleid or os.getenv("alfred_workflow_bundleid")
     appname = jxa_app_name()
-    opts = {'inWorkflow': bundleid}
+    opts = {"inWorkflow": bundleid}
 
-    script = JXA_UNSET_CONFIG.format(app=json.dumps(appname),
-                                     arg=json.dumps(name),
-                                     opts=json.dumps(opts, sort_keys=True))
+    script = JXA_UNSET_CONFIG.format(
+        app=json.dumps(appname),
+        arg=json.dumps(name),
+        opts=json.dumps(opts, sort_keys=True),
+    )
 
-    run_applescript(script, lang='JavaScript')
+    run_applescript(script, lang="JavaScript")
 
 
 def search_in_alfred(query=None):
@@ -347,10 +353,10 @@ def search_in_alfred(query=None):
         query (unicode, optional): Search query.
 
     """
-    query = query or u''
+    query = query or u""
     appname = jxa_app_name()
     script = JXA_SEARCH.format(app=json.dumps(appname), arg=json.dumps(query))
-    run_applescript(script, lang='JavaScript')
+    run_applescript(script, lang="JavaScript")
 
 
 def browse_in_alfred(path):
@@ -364,7 +370,7 @@ def browse_in_alfred(path):
     """
     appname = jxa_app_name()
     script = JXA_BROWSE.format(app=json.dumps(appname), arg=json.dumps(path))
-    run_applescript(script, lang='JavaScript')
+    run_applescript(script, lang="JavaScript")
 
 
 def action_in_alfred(paths):
@@ -378,7 +384,7 @@ def action_in_alfred(paths):
     """
     appname = jxa_app_name()
     script = JXA_ACTION.format(app=json.dumps(appname), arg=json.dumps(paths))
-    run_applescript(script, lang='JavaScript')
+    run_applescript(script, lang="JavaScript")
 
 
 def reload_workflow(bundleid=None):
@@ -393,12 +399,13 @@ def reload_workflow(bundleid=None):
         bundleid (unicode, optional): Bundle ID of workflow to reload.
 
     """
-    bundleid = bundleid or os.getenv('alfred_workflow_bundleid')
+    bundleid = bundleid or os.getenv("alfred_workflow_bundleid")
     appname = jxa_app_name()
-    script = JXA_RELOAD_WORKFLOW.format(app=json.dumps(appname),
-                                        arg=json.dumps(bundleid))
+    script = JXA_RELOAD_WORKFLOW.format(
+        app=json.dumps(appname), arg=json.dumps(bundleid)
+    )
 
-    run_applescript(script, lang='JavaScript')
+    run_applescript(script, lang="JavaScript")
 
 
 def appinfo(name):
@@ -414,22 +421,24 @@ def appinfo(name):
 
     """
     cmd = [
-        'mdfind',
-        '-onlyin', '/Applications',
-        '-onlyin', '/System/Applications',
-        '-onlyin', os.path.expanduser('~/Applications'),
-        '(kMDItemContentTypeTree == com.apple.application &&'
-        '(kMDItemDisplayName == "{0}" || kMDItemFSName == "{0}.app"))'
-        .format(name)
+        "mdfind",
+        "-onlyin",
+        "/Applications",
+        "-onlyin",
+        "/System/Applications",
+        "-onlyin",
+        os.path.expanduser("~/Applications"),
+        "(kMDItemContentTypeTree == com.apple.application &&"
+        '(kMDItemDisplayName == "{0}" || kMDItemFSName == "{0}.app"))'.format(name),
     ]
 
     output = run_command(cmd).strip()
     if not output:
         return None
 
-    path = output.split('\n')[0]
+    path = output.split("\n")[0]
 
-    cmd = ['mdls', '-raw', '-name', 'kMDItemCFBundleIdentifier', path]
+    cmd = ["mdls", "-raw", "-name", "kMDItemCFBundleIdentifier", path]
     bid = run_command(cmd).strip()
     if not bid:  # pragma: no cover
         return None
@@ -452,7 +461,7 @@ def atomic_writer(fpath, mode):
     :type mode: string
 
     """
-    suffix = '.{}.tmp'.format(os.getpid())
+    suffix = ".{}.tmp".format(os.getpid())
     temppath = fpath + suffix
     with open(temppath, mode) as fp:
         try:
@@ -496,7 +505,7 @@ class LockFile(object):
 
     def __init__(self, protected_path, timeout=0.0, delay=0.05):
         """Create new :class:`LockFile` object."""
-        self.lockfile = protected_path + '.lock'
+        self.lockfile = protected_path + ".lock"
         self._lockfile = None
         self.timeout = timeout
         self.delay = delay
@@ -525,7 +534,7 @@ class LockFile(object):
         while True:
             # Raise error if we've been waiting too long to acquire the lock
             if self.timeout and (time.time() - start) >= self.timeout:
-                raise AcquisitionError('lock acquisition timed out')
+                raise AcquisitionError("lock acquisition timed out")
 
             # If already locked, wait then try again
             if self.locked:
@@ -534,7 +543,7 @@ class LockFile(object):
 
             # Create in append mode so we don't lose any contents
             if self._lockfile is None:
-                self._lockfile = open(self.lockfile, 'a')
+                self._lockfile = open(self.lockfile, "a")
 
             # Try to acquire the lock
             try:
@@ -608,7 +617,7 @@ class uninterruptible(object):
 
     """
 
-    def __init__(self, func, class_name=''):
+    def __init__(self, func, class_name=""):
         """Decorate `func`."""
         self.func = func
         functools.update_wrapper(self, func)
@@ -640,5 +649,4 @@ class uninterruptible(object):
 
     def __get__(self, obj=None, klass=None):
         """Decorator API."""
-        return self.__class__(self.func.__get__(obj, klass),
-                              klass.__name__)
+        return self.__class__(self.func.__get__(obj, klass), klass.__name__)

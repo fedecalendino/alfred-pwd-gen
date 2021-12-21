@@ -1,7 +1,7 @@
 ### [Alfred Workflow](https://www.alfredapp.com/workflows/) to generate secure passwords 🔑️
 
 
-![PWD Gen default](/img/default.png)
+![default](/img/screenshots/default.png)
 
 
-![PWD Gen example](/img/low.png)
+![usage](/img/screenshots/usage.png)
