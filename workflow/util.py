@@ -10,11 +10,8 @@
 
 """A selection of helper functions useful for building workflows."""
 
-from __future__ import print_function, absolute_import
 
 import atexit
-from collections import namedtuple
-from contextlib import contextmanager
 import errno
 import fcntl
 import functools
@@ -23,8 +20,10 @@ import os
 import signal
 import subprocess
 import sys
-from threading import Event
 import time
+from collections import namedtuple
+from contextlib import contextmanager
+from threading import Event
 
 # JXA scripts to call Alfred's API via the Scripting Bridge
 # {app} is automatically replaced with "Alfred 3" or
@@ -88,9 +87,9 @@ def jxa_app_name():
     """
     if os.getenv("alfred_version", "").startswith("3"):
         # Alfred 3
-        return u"Alfred 3"
+        return "Alfred 3"
     # Alfred 4+
-    return u"com.runningwithcrayons.Alfred"
+    return "com.runningwithcrayons.Alfred"
 
 
 def unicodify(s, encoding="utf-8", norm=None):
@@ -110,8 +109,8 @@ def unicodify(s, encoding="utf-8", norm=None):
         unicode: Decoded, optionally normalised, Unicode string.
 
     """
-    if not isinstance(s, unicode):
-        s = unicode(s, encoding)
+    if not isinstance(s, str):
+        s = str(s, encoding)
 
     if norm:
         from unicodedata import normalize
@@ -139,7 +138,7 @@ def utf8ify(s):
     if isinstance(s, str):
         return s
 
-    if isinstance(s, unicode):
+    if isinstance(s, str):
         return s.encode("utf-8")
 
     return str(s)
@@ -163,7 +162,7 @@ def applescriptify(s):
         unicode: Escaped string.
 
     """
-    return s.replace(u'"', u'" & quote & "')
+    return s.replace('"', '" & quote & "')
 
 
 def run_command(cmd, **kwargs):
@@ -182,8 +181,8 @@ def run_command(cmd, **kwargs):
         str: Output returned by :func:`~subprocess.check_output`.
 
     """
-    cmd = [utf8ify(s) for s in cmd]
-    return subprocess.check_output(cmd, **kwargs)
+    cmd = [str(s) for s in cmd]
+    return subprocess.check_output(cmd, **kwargs).decode()
 
 
 def run_applescript(script, *args, **kwargs):
@@ -301,11 +300,7 @@ def set_config(name, value, bundleid=None, exportable=False):
     """
     bundleid = bundleid or os.getenv("alfred_workflow_bundleid")
     appname = jxa_app_name()
-    opts = {
-        "toValue": value,
-        "inWorkflow": bundleid,
-        "exportable": exportable,
-    }
+    opts = {"toValue": value, "inWorkflow": bundleid, "exportable": exportable}
 
     script = JXA_SET_CONFIG.format(
         app=json.dumps(appname),
@@ -353,7 +348,7 @@ def search_in_alfred(query=None):
         query (unicode, optional): Search query.
 
     """
-    query = query or u""
+    query = query or ""
     appname = jxa_app_name()
     script = JXA_SEARCH.format(app=json.dumps(appname), arg=json.dumps(query))
     run_applescript(script, lang="JavaScript")
@@ -443,7 +438,7 @@ def appinfo(name):
     if not bid:  # pragma: no cover
         return None
 
-    return AppInfo(unicodify(name), unicodify(path), unicodify(bid))
+    return AppInfo(name, path, bid)
 
 
 @contextmanager
@@ -470,7 +465,7 @@ def atomic_writer(fpath, mode):
         finally:
             try:
                 os.remove(temppath)
-            except (OSError, IOError):
+            except OSError:
                 pass
 
 
@@ -484,7 +479,7 @@ class LockFile(object):
 
     >>> path = '/path/to/file'
     >>> with LockFile(path):
-    >>>     with open(path, 'wb') as fp:
+    >>>     with open(path, 'w') as fp:
     >>>         fp.write(data)
 
     Args:
@@ -577,10 +572,10 @@ class LockFile(object):
             self._lockfile = None
             try:
                 os.unlink(self.lockfile)
-            except (IOError, OSError):  # pragma: no cover
+            except OSError:  # pragma: no cover
                 pass
 
-            return True
+            return True  # noqa: B012
 
     def __enter__(self):
         """Acquire lock."""
