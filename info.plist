@@ -8,11 +8,11 @@
 	<string>Tools</string>
 	<key>connections</key>
 	<dict>
-		<key>B0B48240-4B88-4DA4-AF4F-B5E62A496B71</key>
+		<key>E17D249B-3A1C-4E16-AFD6-8B04998E329F</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>2CE251E4-C48A-4FF4-85B5-9C594E97F8DC</string>
+				<string>A6DCC97F-3E98-41A7-A949-78C4D55522AB</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -47,7 +47,7 @@
 			<key>type</key>
 			<string>alfred.workflow.output.clipboard</string>
 			<key>uid</key>
-			<string>2CE251E4-C48A-4FF4-85B5-9C594E97F8DC</string>
+			<string>A6DCC97F-3E98-41A7-A949-78C4D55522AB</string>
 			<key>version</key>
 			<integer>3</integer>
 		</dict>
@@ -71,32 +71,32 @@
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
-				<true/>
+				<false/>
 				<key>queuedelaymode</key>
 				<integer>0</integer>
 				<key>queuemode</key>
-				<integer>1</integer>
+				<integer>2</integer>
 				<key>runningsubtext</key>
 				<string></string>
 				<key>script</key>
-				<string>python3 ./main.py $@</string>
+				<string>./dist/main $@</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
 				<string></string>
 				<key>subtext</key>
-				<string>for example: pwd 9 8 7</string>
+				<string></string>
 				<key>title</key>
-				<string>pwd [letters=10] [digits=5] [symbols=5]</string>
+				<string>pwd [letters: 15] [digits: 5] [symbols: 5]</string>
 				<key>type</key>
 				<integer>0</integer>
 				<key>withspace</key>
-				<false/>
+				<true/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>B0B48240-4B88-4DA4-AF4F-B5E62A496B71</string>
+			<string>E17D249B-3A1C-4E16-AFD6-8B04998E329F</string>
 			<key>version</key>
 			<integer>3</integer>
 		</dict>
@@ -105,23 +105,25 @@
 	<string>Generate secure passwords 🔑️</string>
 	<key>uidata</key>
 	<dict>
-		<key>2CE251E4-C48A-4FF4-85B5-9C594E97F8DC</key>
+		<key>A6DCC97F-3E98-41A7-A949-78C4D55522AB</key>
 		<dict>
 			<key>xpos</key>
-			<integer>285</integer>
+			<real>280</real>
 			<key>ypos</key>
-			<integer>25</integer>
+			<real>15</real>
 		</dict>
-		<key>B0B48240-4B88-4DA4-AF4F-B5E62A496B71</key>
+		<key>E17D249B-3A1C-4E16-AFD6-8B04998E329F</key>
 		<dict>
 			<key>xpos</key>
-			<integer>35</integer>
+			<real>30</real>
 			<key>ypos</key>
-			<integer>25</integer>
+			<real>15</real>
 		</dict>
 	</dict>
+	<key>userconfigurationconfig</key>
+	<array/>
 	<key>version</key>
-	<string>1.4</string>
+	<string>1.5.0</string>
 	<key>webaddress</key>
 	<string>https://github.com/fedecalendino/alfred-pwd-gen</string>
 </dict>
