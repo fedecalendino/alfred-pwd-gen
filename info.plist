@@ -85,9 +85,9 @@
 				<key>scriptfile</key>
 				<string></string>
 				<key>subtext</key>
-				<string></string>
+				<string>pwd [letters: default=15] [digits: default=5] [symbols: default=5]</string>
 				<key>title</key>
-				<string>pwd [letters: 15] [digits: 5] [symbols: 5]</string>
+				<string>Generate secure passwords</string>
 				<key>type</key>
 				<integer>0</integer>
 				<key>withspace</key>
