@@ -78,9 +78,7 @@ def main(workflow):
             arg=password,
             copytext=password,
             valid=True,
-        ).set_icon_file(
-            path=select_icon(strength),
-        ).set_alt_mod(
+        ).set_icon_file(path=select_icon(strength),).set_alt_mod(
             arg=password,
             subtitle=make_mod_subtitle(letters, digits, symbols),
         ).set_cmd_mod(
