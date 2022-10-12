@@ -20,7 +20,7 @@ def generate(letters, digits, symbols):
     return "".join(characters)
 
 
-def _calc_streght(password):
+def calc(password):
     return int(len(password) * log(len(set(password)), 2))
 
 
@@ -28,7 +28,7 @@ def strength(password):
     if not password:
         return 0
 
-    current = _calc_streght(password)
-    baseline = _calc_streght(generate(15, 5, 5))
+    current = calc(password)
+    baseline = calc(generate(15, 5, 5))
 
     return current / baseline

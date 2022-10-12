@@ -4,7 +4,6 @@ from pyflow import Workflow
 
 import generator
 
-
 ICONS = {
     "⬛": "black",
     "🟫": "brown",
