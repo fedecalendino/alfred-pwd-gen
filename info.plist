@@ -135,7 +135,7 @@
 				<true/>
 			</dict>
 			<key>description</key>
-			<string></string>
+			<string>Keyword to generate secure passwords.</string>
 			<key>label</key>
 			<string>Password Generator keyword</string>
 			<key>type</key>
@@ -145,7 +145,7 @@
 		</dict>
 	</array>
 	<key>version</key>
-	<string>1.7.0</string>
+	<string>1.7.1</string>
 	<key>webaddress</key>
 	<string>https://github.com/fedecalendino/alfred-pwd-gen</string>
 </dict>
