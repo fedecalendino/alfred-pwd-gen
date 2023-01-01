@@ -7,9 +7,9 @@
 
 #### with default values (15 letters, 5 digits and 5 symbols)
 
-![default](./img/screenshots/default.png)
+![default](screenshots/default.png)
 
 
 ### with parameters
 
-![usage](./img/screenshots/usage.png)
+![usage](screenshots/usage.png)
