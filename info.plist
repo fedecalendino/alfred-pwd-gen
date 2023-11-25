@@ -85,7 +85,7 @@
 				<key>scriptfile</key>
 				<string></string>
 				<key>subtext</key>
-				<string>pwd [letters: default=15] [digits: default=5] [symbols: default=5]</string>
+				<string>pwd [letters: default=10] [digits: default=3] [symbols: default=3]</string>
 				<key>title</key>
 				<string>Generate secure passwords</string>
 				<key>type</key>
@@ -108,16 +108,16 @@
 		<key>A6DCC97F-3E98-41A7-A949-78C4D55522AB</key>
 		<dict>
 			<key>xpos</key>
-			<real>550</real>
+			<real>280</real>
 			<key>ypos</key>
-			<real>265</real>
+			<real>25</real>
 		</dict>
 		<key>E17D249B-3A1C-4E16-AFD6-8B04998E329F</key>
 		<dict>
 			<key>xpos</key>
-			<real>300</real>
+			<real>30</real>
 			<key>ypos</key>
-			<real>265</real>
+			<real>25</real>
 		</dict>
 	</dict>
 	<key>userconfigurationconfig</key>
@@ -145,7 +145,7 @@
 		</dict>
 	</array>
 	<key>version</key>
-	<string>1.7.1</string>
+	<string>1.8.0</string>
 	<key>webaddress</key>
 	<string>https://github.com/fedecalendino/alfred-pwd-gen</string>
 </dict>

@@ -8,7 +8,7 @@ DIGITS = "0123456789"
 SYMBOLS = "!#$%&*+,-.:;<=>?@^_`~|"
 
 
-def generate(letters, digits, symbols):
+def generate(letters: int, digits: int, symbols: int):
     characters = []
 
     for amount, space in [(letters, LETTERS), (digits, DIGITS), (symbols, SYMBOLS)]:
@@ -20,11 +20,11 @@ def generate(letters, digits, symbols):
     return "".join(characters)
 
 
-def calc(password):
+def calc(password: str):
     return int(len(password) * log(len(set(password)), 2))
 
 
-def strength(password):
+def strength(password: str):
     if not password:
         return 0
 
