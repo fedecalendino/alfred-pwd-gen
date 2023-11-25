@@ -50,7 +50,7 @@ def make_mod_subtitle(letters, digits, symbols):
 
 
 def parse_args(args):
-    values = [15, 5, 5]
+    values = [8, 2, 2]
 
     try:
         for i, value in enumerate(args):
@@ -60,18 +60,17 @@ def parse_args(args):
 
     return values
 
-
 def main(workflow):
     letters, digits, symbols = parse_args(workflow.args)
 
-    for _ in range(5):
-        password = generator.generate(letters, digits, symbols)
+    for x in range(5):
+        password = generator.generate(letters + x, digits + x, symbols + x)
         strength = generator.strength(password)
 
         workflow.new_item(
             title=" {}".format(password),
             subtitle=make_subtitle(
-                length=letters + digits + symbols,
+                length=letters + x + digits + x + symbols + x,
                 strength=strength,
             ),
             arg=password,
