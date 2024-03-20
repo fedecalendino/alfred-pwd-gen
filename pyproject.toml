@@ -16,7 +16,7 @@ alfred-pyflow = "0.4.6"
 
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.3.0"
+black = "^24.3.0"
 coverage = "^7.2.5"
 ddt = "^1.6.0"
 
