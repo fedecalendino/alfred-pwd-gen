@@ -1,7 +1,6 @@
 import random
-
+import secrets
 from math import log
-
 
 LETTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 DIGITS = "0123456789"
@@ -12,7 +11,7 @@ def generate(letters: int, digits: int, symbols: int):
     characters = []
 
     for amount, space in [(letters, LETTERS), (digits, DIGITS), (symbols, SYMBOLS)]:
-        tmp = (random.choice(space) for _ in range(amount))
+        tmp = (secrets.choice(space) for _ in range(amount))
         characters.extend(tmp)
 
     random.shuffle(characters)

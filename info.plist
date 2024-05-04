@@ -145,7 +145,7 @@
 		</dict>
 	</array>
 	<key>version</key>
-	<string>1.8.0</string>
+	<string>1.9.0</string>
 	<key>webaddress</key>
 	<string>https://github.com/fedecalendino/alfred-pwd-gen</string>
 </dict>

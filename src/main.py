@@ -58,7 +58,7 @@ def make_mod_subtitle(letters: int, digits: int, symbols: int):
 
 
 def parse_args(args: List[str]):
-    values = [10, 3, 3]
+    values = [15, 6, 6]
 
     try:
         for i, value in enumerate(args):
@@ -79,7 +79,7 @@ def increment(value: int, inc: int) -> int:
 def main(workflow: Workflow):
     letters, digits, symbols = parse_args(workflow.args)
 
-    for x in range(6):
+    for x in [0, 0, -2, -1, 1, 2]:
         l = increment(letters, x)
         d = increment(digits, x)
         s = increment(symbols, x)

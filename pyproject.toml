@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "Password Generator"
-version = "1.8.0"
+version = "1.9.0"
 description = "Generate secure passwords"
 documentation = "https://github.com/fedecalendino/alfred-pwd-gen/blob/main/README.md"
 homepage = "https://github.com/fedecalendino/alfred-pwd-gen"
